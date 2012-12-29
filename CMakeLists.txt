@@ -21,18 +21,16 @@ if(WIN32)
     if(CTP_MDUSER_LIBRARY AND CTP_TRADE_LIBRARY AND CTP_RISK_LIBRARY)
         set(CTP_LIBRARIES ${CTP_MDUSER_LIBRARY} ${CTP_TRADE_LIBRARY} ${CTP_RISK_LIBRARY})
         set(CTP_SHAREDLIBFILES ${PROJECT_SOURCE_DIR}/ctp/api/risk/lib/riskuserapi.dll
-                ${PROJECT_SOURCE_DIR}/ctp/api/trade/win/lib/thostmduserapi.dll
-                ${PROJECT_SOURCE_DIR}/ctp/api/trade/win/lib/thosttraderapi.dll
+            ${PROJECT_SOURCE_DIR}/ctp/api/trade/win/lib/thostmduserapi.dll
+            ${PROJECT_SOURCE_DIR}/ctp/api/trade/win/lib/thosttraderapi.dll
         )
     endif()
 elseif(UNIX)
-    find_library(CTP_MDUSER_LIBRARY NAMES thostmduserapi PATHS ${CTP_LIBRARY_DIRS})
-    find_library(CTP_TRADE_LIBRARY NAMES thosttraderapi PATHS ${CTP_LIBRARY_DIRS})
+    find_library(CTP_MDUSER_LIBRARY thostmduserapi PATHS ${CTP_LIBRARY_DIRS})
+    find_library(CTP_TRADE_LIBRARY thosttraderapi PATHS ${CTP_LIBRARY_DIRS})
     if(CTP_MDUSER_LIBRARY AND CTP_TRADE_LIBRARY)
         set(CTP_LIBRARIES ${CTP_MDUSER_LIBRARY} ${CTP_TRADE_LIBRARY})
-        set(CTP_SHAREDLIBFILES ${PROJECT_SOURCE_DIR}/ctp/api/trade/linux64/lib/thostmduserapi.so
-            ${PROJECT_SOURCE_DIR}/ctp/api/trade/linux64/lib/thosttraderapi.so
-        )
+        set(CTP_SHAREDLIBFILES ${CTP_LIBRARIES})
     endif()
 endif()
 include_directories(${CTP_INCLUDE_DIRS})

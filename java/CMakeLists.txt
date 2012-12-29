@@ -18,6 +18,7 @@ set(JAVA_SOURCES ${CMAKE_SWIG_OUTDIR}/*.java)
 set(BIN_FILE "ctp.jar")
 set(DOC_FILE "ctp-doc.jar")
 set(SRC_FILE "ctp-src.jar")
+
 foreach(_file ${CTP_SHAREDLIBFILES})
     file(COPY ${_file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     get_filename_component(_rfile ${_file} NAME)

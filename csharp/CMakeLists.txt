@@ -12,8 +12,8 @@ file(MAKE_DIRECTORY ${SRC_DIR})
 file(MAKE_DIRECTORY ${BIN_DIR})
 set(CMAKE_SWIG_OUTDIR ${SRC_DIR})
 
-set(${_namespace} FreeQuant.Ctp)
-set(CMAKE_SWIG_FLAGS "-namespace" FreeQuant.Ctp)
+set(_namespace FreeQuant.Ctp)
+set(CMAKE_SWIG_FLAGS "-namespace" ${_namespace})
 
 set(WRAPPER_FILES ../ctp.i)
 set_source_files_properties(${WRAPPER_FILES} PROPERTIES CPLUSPLUS ON)

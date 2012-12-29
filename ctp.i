@@ -30,11 +30,11 @@
 %include <various.i>
 %rename(ThostTeResumeType) THOST_TE_RESUME_TYPE;
 %javaconst(1);
+%apply char **STRING_ARRAY { char *ppInstrumentID[] };
 #endif
 
 %include "ThostFtdcUserApiDataType.h"
 %include "ThostFtdcUserApiStruct.h"
-%apply char **STRING_ARRAY { char *ppInstrumentID[] };
 %feature("director") CThostFtdcMdSpi;
 %include "ThostFtdcMdApi.h"
 %feature("director") CThostFtdcTraderSpi;
