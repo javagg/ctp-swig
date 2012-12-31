@@ -57,7 +57,7 @@ if(SWIG_FOUND)
     endif()
 
     if(RUBY_FOUND)
-#        add_subdirectory(ruby)
+        add_subdirectory(ruby)
     endif(RUBY_FOUND)
 
     if(R_FOUND)
@@ -73,7 +73,7 @@ if(SWIG_FOUND)
     endif()
 
     if(LUA51_FOUND)
-#        add_subdirectory(lua)
+        add_subdirectory(lua)
     endif(LUA51_FOUND)
 
     if(TCL_FOUND)

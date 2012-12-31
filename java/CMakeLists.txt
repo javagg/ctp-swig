@@ -39,14 +39,3 @@ add_custom_command(OUTPUT _ctp_java_jar
 )
 
 add_custom_target(do_ctp_java_jar ALL DEPENDS _ctp_java_jar)
-
-#find_package(Maven)
-#if(MAVEN_EXECUTABLE)
-#    add_custom_command(OUTPUT freequant_java_install
-#        COMMENT "install jar file..."
-#        COMMAND ${MAVEN_EXECUTABLE} install:install-file -Dfile=${CMAKE_CURRENT_BINARY_DIR}/freequant.jar -DgroupId=${_package_name} -DartifactId=freequant -Dversion=0.0.1 -Dpackaging=jar
-#        DEPENDS freequant_java_jar
-#    )
-#    add_custom_target(install_jar ALL DEPENDS do_trofiles freequant_java_install)
-#endif()
-

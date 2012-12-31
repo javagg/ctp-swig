@@ -8,7 +8,7 @@
 
 %{
 #ifdef SWIGPYTHON
-//  #define SWIG_FILE_WITH_INIT
+  #define SWIG_FILE_WITH_INIT
 #endif
 
 #include "ThostFtdcUserApiDataType.h"
