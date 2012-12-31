@@ -52,7 +52,7 @@ if(SWIG_FOUND)
     find_package(Octave)
 
     if(JNI_FOUND)
-        add_subdirectory(java)
+#        add_subdirectory(java)
     endif()
 
     if(RUBY_FOUND)
@@ -60,30 +60,32 @@ if(SWIG_FOUND)
     endif(RUBY_FOUND)
 
     if(R_FOUND)
-        add_subdirectory(R)
+#        add_subdirectory(R)
     endif(R_FOUND)
 
     if(PYTHONLIBS_FOUND)
-        add_subdirectory(python)
+#        add_subdirectory(python)
     endif(PYTHONLIBS_FOUND)
 
     if(CSharp_FOUND OR MONO_FOUND)
-        add_subdirectory(csharp)
+#        add_subdirectory(csharp)
     endif()
 
     if(LUA51_FOUND)
-        add_subdirectory(lua)
+#        add_subdirectory(lua)
     endif(LUA51_FOUND)
 
     if(TCL_FOUND)
-        add_subdirectory(tcl)
+#        add_subdirectory(tcl)
     endif(TCL_FOUND)
 
     if(PERLLIBS_FOUND)
-        add_subdirectory(perl)
+#        add_subdirectory(perl)
     endif(PERLLIBS_FOUND)
 
     if(OCTAVE_FOUND)
-        add_subdirectory(octave)
+#        add_subdirectory(octave)
     endif(OCTAVE_FOUND)
 endif()
+
+add_subdirectory(test)

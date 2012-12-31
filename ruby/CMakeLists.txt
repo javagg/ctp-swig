@@ -1,5 +1,5 @@
 include_directories(${RUBY_INCLUDE_DIRS})
-set(CMAKE_SWIG_FLAGS -autorename -module ctp)
+set(CMAKE_SWIG_FLAGS -autorename -module ctp -prefix "freequant::")
 set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR})
 
 set(_target ctp-ruby)
