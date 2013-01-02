@@ -10,7 +10,9 @@ swig_link_libraries(${_target} ${RUBY_LIBRARY} ${CTP_LIBRARIES})
 set_target_properties(${_target} PROPERTIES PREFIX "" SUFFIX ".so")
 set_target_properties(${_target} PROPERTIES OUTPUT_NAME "ctp")
 
+# import!!!
 file(COPY ${CTP_SHAREDLIBFILES} DESTINATION ${CMAKE_SWIG_OUTDIR})
+
 file(COPY runmd.rb DESTINATION ${CMAKE_SWIG_OUTDIR})
 
 #execute_process(COMMAND ${RUBY_EXECUTABLE} -e "print RbConfig::CONFIG['sitearchdir']" OUTPUT_VARIABLE _ruby_site_dir)

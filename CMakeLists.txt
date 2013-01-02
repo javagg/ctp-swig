@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(ctp-swig)
 
 set(BUILD_SHARED_LIBS true)
-#set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_VERBOSE_MAKEFILE true)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
