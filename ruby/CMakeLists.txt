@@ -13,8 +13,12 @@ set_target_properties(${_target} PROPERTIES OUTPUT_NAME "ctp")
 # import!!!
 file(COPY ${CTP_SHAREDLIBFILES} DESTINATION ${CMAKE_SWIG_OUTDIR})
 
-file(COPY runmd.rb DESTINATION ${CMAKE_SWIG_OUTDIR})
+execute_process(COMMAND ${RUBY_EXECUTABLE} -e "print RbConfig::CONFIG['sitearchdir']" OUTPUT_VARIABLE _ruby_site_dir)
+install(TARGETS ${_target} DESTINATION ${_ruby_site_dir})
 
-#execute_process(COMMAND ${RUBY_EXECUTABLE} -e "print RbConfig::CONFIG['sitearchdir']" OUTPUT_VARIABLE _ruby_site_dir)
-#message(${_ruby_site_dir})
-#install(TARGETS ${_target} DESTINATION ${_ruby_site_dir})
+install(FILES ${CTP_SHAREDLIBFILES} DESTINATION "/usr/local/lib")
+add_custom_command(
+    OUTPUT runmd.rb
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/runmd.rb ${CMAKE_CURRENT_BINARY_DIR}/runmd.rb
+    DEPENDS ${_target})
+add_custom_target(run ALL DEPENDS runmd.rb)

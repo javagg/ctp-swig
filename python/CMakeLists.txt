@@ -12,3 +12,8 @@ set_target_properties(${SWIG_MODULE_${_target}_REAL_NAME} PROPERTIES OUTPUT_NAME
 
 # import!!!
 file(COPY ${CTP_SHAREDLIBFILES} DESTINATION ${CMAKE_SWIG_OUTDIR})
+
+execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_path('platlib'))"
+    OUTPUT_VARIABLE _py_site_package_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
+install(TARGETS ${SWIG_MODULE_${_target}_REAL_NAME} DESTINATION ${_py_site_package_dir})
+install(FILES ${swig_generated_sources} DESTINATION ${_py_site_package_dir})
