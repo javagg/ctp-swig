@@ -10,9 +10,6 @@ swig_add_module(${_target} python ${WRAPPER_FILES})
 swig_link_libraries(${_target} ${PYTHON_LIBRARIES} ${CTP_LIBRARIES})
 set_target_properties(${SWIG_MODULE_${_target}_REAL_NAME} PROPERTIES OUTPUT_NAME "_ctp")
 
-# import!!!
-file(COPY ${CTP_SHAREDLIBFILES} DESTINATION ${CMAKE_SWIG_OUTDIR})
-
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_path('platlib'))"
     OUTPUT_VARIABLE _py_site_package_dir OUTPUT_STRIP_TRAILING_WHITESPACE)
 install(TARGETS ${SWIG_MODULE_${_target}_REAL_NAME} DESTINATION ${_py_site_package_dir})
