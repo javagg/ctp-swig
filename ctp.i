@@ -31,10 +31,13 @@
 %ignore THOST_FTDC_FTC_BrokerLaunchBrokerToBank;
 
 #ifdef SWIGJAVA
-%include "various.i"
 %rename(ThostTeResumeType) THOST_TE_RESUME_TYPE;
-%javaconst(1);
+
+%include "various.i"
 %apply char **STRING_ARRAY { char *ppInstrumentID[] };
+
+%javaconst(1);
+
 #endif
 
 #ifdef SWIGCSHARP

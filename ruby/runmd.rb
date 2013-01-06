@@ -4,75 +4,70 @@ require 'ctp'
 
 include Ctp
 
-class MySpi < CThostFtdcMdSpi
-  @@request_id = 0
-  def initialize(front, broke_id, user_id, password, api)
-    @front = front;
-    @broke_id = broke_id
-    @user_id = user_id
-    @password = password
-    @api = api
-  end
-
-  def on_front_connected
-    puts "on_front_connected"
-  end
-end
-
 class MdSpi < CThostFtdcMdSpi
   @@request_id = 0
-  def initialize(front, broke_id, user_id, password, api)
+
+  def initialize
+    super
+  end
+
+  def start(front, broke_id, user_id, password)
     @front = front;
     @broke_id = broke_id
     @user_id = user_id
     @password = password
-    @api = api
-    @api.register_spi(@self)
+    @api = CThostFtdcMdApi.create_ftdc_md_api()
+    @api.register_spi(self)
     @api.register_front(@front)
     @api.init()
+  end
+
+  def join
     @api.join()
   end
 
-  def finalize
+  def stop
     @api.register_spi(nil)
     @api.release
   end
 
-  #def run
-  #  @api.init()
-  #  @api.join()
-  #end
+  def subscribe
+    #@api.subscribe_market_data("IF1301",1);
+  end
+
+  def on_front_connected
+    puts "on_front_connected"
+
+    field = CThostFtdcReqUserLoginField.new
+    field.BrokerID = @broke_id
+    field.UserID = @user_id
+    field.Password = @password
+    @@request_id += 1
+    @api.req_user_login field, @@request_id
+  end
   #
-  #def on_front_connected
-  #  puts "on_front_connected"
+  def on_front_disconnected(reason)
+    puts "on_front_connected"
+  end
   #
-  #  field = Ctp::CThostFtdcReqUserLoginField.new
-  #  field.BrokerID = "2030"
-  #  field.UserID = "352240"
-  #  filed.Password = "888888"
-  #  @@request_id += 1
-  #  @api.req_user_login field, @@request_id
-  #end
+  def on_heart_beat_warning(time_lapse)
+    puts "on_heart_beat_warning"
+  end
   #
-  #def on_front_disconnected
-  #  puts "on_front_connected"
-  #end
-  #
-  #def on_heart_beat_warning
-  #  puts "on_heart_beat_warning"
-  #end
-  #
-  #def on_rsp_user_login
-  #end
+  def on_rsp_user_login(field, info, request_id, last)
+    puts "on_rsp_user_login"
+    puts @api.get_trading_day()
+  end
   #
   #def on_rsp_user_logout
   #end
   #
-  #def on_rsp_error
-  #end
+  def on_rsp_error(rsp_info, request_id, last)
+  end
   #
-  #def on_rsp_sub_market_data
-  #end
+  def on_rsp_sub_market_data(field, info, request_id, last)
+    puts 'on_rsp_sub_market_data'
+  end
   #
   #def on_rsp_un_sub_market_data
   #end
@@ -86,7 +81,8 @@ broker = "2030"
 user = "0000000624"
 password = "asdfgh"
 
-api = CThostFtdcMdApi.create_ftdc_md_api()
-spi = MdSpi.new(conn, broker, user, password, api)
-spi.finalize
-#spi.run
+spi = MdSpi.new
+spi.start(conn, broker, user, password)
+spi.subscribe
+spi.join
+spi.stop
