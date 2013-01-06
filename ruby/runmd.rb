@@ -1,8 +1,14 @@
 #!/usr/bin/env ruby
 
-require 'ctp'
 
+require 'thread'
+require 'ctp'
 include Ctp
+
+
+mutex = Mutex.new
+resource = ConditionVariable.new
+
 
 class MdSpi < CThostFtdcMdSpi
   @@request_id = 0
@@ -32,18 +38,19 @@ class MdSpi < CThostFtdcMdSpi
   end
 
   def subscribe
-    @api.subscribe_market_data(["IF1301"]);
+    puts "subcribe..."
+    @api.subscribe_market_data(["IF1302"]);
   end
 
   def on_front_connected
     puts "on_front_connected"
 
-    #field = CThostFtdcReqUserLoginField.new
-    #field.BrokerID = @broke_id
-    #field.UserID = @user_id
-    #field.Password = @password
-    #@@request_id += 1
-    #@api.req_user_login field, @@request_id
+    field = CThostFtdcReqUserLoginField.new
+    field.BrokerID = @broke_id
+    field.UserID = @user_id
+    field.Password = @password
+    @@request_id += 1
+    @api.req_user_login field, @@request_id
   end
   #
   def on_front_disconnected(reason)
@@ -56,7 +63,13 @@ class MdSpi < CThostFtdcMdSpi
   #
   def on_rsp_user_login(field, info, request_id, last)
     puts "on_rsp_user_login"
-    #puts @api.get_trading_day()
+    #day = @api.get_trading_day()
+    #puts day
+    #mutex.synchronize {
+    #  resource.signal
+    #}
+
+    puts "dddd" + Thread.current.to_s
   end
   #
   #def on_rsp_user_logout
@@ -83,6 +96,10 @@ password = "888888"
 
 spi = MdSpi.new
 spi.start(conn, broker, user, password)
+puts Thread.current
+#mutex.synchronize {
+#  resource.wait(mutex)
+#}
 
 #spi.subscribe
 spi.join

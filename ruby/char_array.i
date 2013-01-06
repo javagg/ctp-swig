@@ -5,10 +5,10 @@
     $1 = (char **)malloc((size+1)*sizeof(char *));
     VALUE *ptr = RARRAY_PTR($input);
     int i=0;
-	for (; i < size; i++, ptr++) {
-      $1[i]= StringValuePtr(*ptr);
+    for (; i < size; i++, ptr++) {
+      $1[i] = StringValuePtr(*ptr);
     }    
-    $1[i] = NULL;
+    $1[i] = 0;
   } else {
     $1 = 0; $2 = 0;
     %argument_fail(SWIG_TypeError, "char **ARRAY, int SIZE", $symname, $argnum);
