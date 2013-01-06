@@ -32,18 +32,18 @@ class MdSpi < CThostFtdcMdSpi
   end
 
   def subscribe
-    #@api.subscribe_market_data("IF1301",1);
+    @api.subscribe_market_data(["IF1301"]);
   end
 
   def on_front_connected
     puts "on_front_connected"
 
-    field = CThostFtdcReqUserLoginField.new
-    field.BrokerID = @broke_id
-    field.UserID = @user_id
-    field.Password = @password
-    @@request_id += 1
-    @api.req_user_login field, @@request_id
+    #field = CThostFtdcReqUserLoginField.new
+    #field.BrokerID = @broke_id
+    #field.UserID = @user_id
+    #field.Password = @password
+    #@@request_id += 1
+    #@api.req_user_login field, @@request_id
   end
   #
   def on_front_disconnected(reason)
@@ -56,7 +56,7 @@ class MdSpi < CThostFtdcMdSpi
   #
   def on_rsp_user_login(field, info, request_id, last)
     puts "on_rsp_user_login"
-    puts @api.get_trading_day()
+    #puts @api.get_trading_day()
   end
   #
   #def on_rsp_user_logout
@@ -76,13 +76,14 @@ class MdSpi < CThostFtdcMdSpi
   #end
 end
 
-conn = "tcp://asp-sim1-front1.financial-trading-platform.com:41213"
+conn = "tcp://asp-sim2-front1.financial-trading-platform.com:26213"
 broker = "2030"
-user = "0000000624"
-password = "asdfgh"
+user = "352240"
+password = "888888"
 
 spi = MdSpi.new
 spi.start(conn, broker, user, password)
-spi.subscribe
+
+#spi.subscribe
 spi.join
 spi.stop

@@ -49,6 +49,10 @@ CSHARP_ARRAYS(char *, string)
 %apply char *INPUT[] { char *ppInstrumentID[] };
 #endif
 
+#ifdef SWIGRUBY
+%include "ruby/char_array.i"
+%apply (char **ARRAY, int SIZE) { (char *ppInstrumentID[], int nCount) };
+#endif
 
 %include "ThostFtdcUserApiDataType.h"
 %include "ThostFtdcUserApiStruct.h"

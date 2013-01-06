@@ -17,17 +17,17 @@ add_custom_command(
     OUTPUT runmd.rb
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/runmd.rb ${CMAKE_CURRENT_BINARY_DIR}/runmd.rb
     DEPENDS ${_target})
-#add_custom_target(run ALL DEPENDS runmd.rb)
+add_custom_target(run ALL DEPENDS runmd.rb)
 
-find_program(GEM_EXECUTABLE gem)
-if(GEM_EXECUTABLE)
-    add_custom_command(
-        OUTPUT _make_and_install_gem
-        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/ctp.gemspec ${CMAKE_CURRENT_BINARY_DIR}/ctp.gemspec
-#        COMMAND ${GEM_EXECUTABLE} build ${CMAKE_CURRENT_BINARY_DIR}/ctp.gemspec
-#        COMMAND ${GEM_EXECUTABLE} install ctp-0.0.1-x86_64-linux.gem
-        DEPENDS ${_target}
-    )
-endif()
+#find_program(GEM_EXECUTABLE gem)
+#if(GEM_EXECUTABLE)
+#    add_custom_command(
+#        OUTPUT _make_and_install_gem
+#        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/ctp.gemspec ${CMAKE_CURRENT_BINARY_DIR}/ctp.gemspec
+##        COMMAND ${GEM_EXECUTABLE} build ${CMAKE_CURRENT_BINARY_DIR}/ctp.gemspec
+##        COMMAND ${GEM_EXECUTABLE} install ctp-0.0.1-x86_64-linux.gem
+#        DEPENDS ${_target}
+#    )
+#endif()
 
-add_custom_target(run ALL DEPENDS runmd.rb _make_and_install_gem)
+#add_custom_target(run ALL DEPENDS runmd.rb _make_and_install_gem)
