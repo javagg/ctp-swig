@@ -1,6 +1,34 @@
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 set(_c_headers Callback.h Caller.h)
-
 set(_sources ThreadedCallback.cpp Main.cpp)
-
 add_executable(tCallback ${_sources})
+
+find_package(SWIG REQUIRED)
+if(SWIG_FOUND)
+    include(${SWIG_USE_FILE})
+    find_package(Java)
+    find_package(JNI)
+    find_package(Ruby)
+    find_package(PythonInterp)
+    find_package(PythonLibs 2.7)
+    find_package(R)
+    find_package(CSharp)
+    find_package(Mono)
+    # use $ENV{LUA_DIR}
+    find_package(Lua51)
+    find_package(PerlLibs)
+    find_package(TCL)
+    find_package(Octave)
+
+    if(JNI_FOUND)
+        add_subdirectory(java)
+    endif()
+
+    if(RUBY_FOUND)
+#        add_subdirectory(ruby)
+    endif(RUBY_FOUND)
+
+    if(PYTHONINTERP_FOUND AND PYTHONLIBS_FOUND)
+#        add_subdirectory(python)
+    endif()
+endif()

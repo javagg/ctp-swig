@@ -13,15 +13,11 @@ public:
     Caller(Callback *cb) : callback(cb) {}
     void request() {
         std::cout << "request from thread " << std::this_thread::get_id() << std::endl;
-        std::thread t(&Caller::response, this); if (t.joinable()) t.join();
+        std::thread t(&Caller::response, this);
+        if (t.joinable()) t.join();
     }
 
-    void request1() {
-        std::cout << "request from thread " << std::this_thread::get_id() << std::endl;
-        response();
-    }
-
-  void response() {
+    void response() {
         callback->response();
     }
 
