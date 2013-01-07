@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(ctp-swig)
 
 set(BUILD_SHARED_LIBS true)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_VERBOSE_MAKEFILE true)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
@@ -64,7 +64,7 @@ if(SWIG_FOUND)
     endif()
 
     if(RUBY_FOUND)
-        add_subdirectory(ruby)
+#        add_subdirectory(ruby)
     endif(RUBY_FOUND)
 
     if(R_FOUND)
@@ -72,7 +72,7 @@ if(SWIG_FOUND)
     endif(R_FOUND)
 
     if(PYTHONINTERP_FOUND AND PYTHONLIBS_FOUND)
-        add_subdirectory(python)
+#        add_subdirectory(python)
     endif()
 
     if(CSharp_FOUND OR MONO_FOUND)
@@ -96,4 +96,5 @@ if(SWIG_FOUND)
     endif(OCTAVE_FOUND)
 endif()
 
+add_subdirectory(code)
 add_subdirectory(test)

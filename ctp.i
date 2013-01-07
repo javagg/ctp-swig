@@ -54,6 +54,11 @@ CSHARP_ARRAYS(char *, string)
 %apply (char **ARRAY, int SIZE) { (char *ppInstrumentID[], int nCount) };
 #endif
 
+#ifdef SWIGPYTHON
+%include "python/char_array.i"
+%apply (char **ARRAY, int SIZE) { (char *ppInstrumentID[], int nCount) };
+#endif
+
 %include "ThostFtdcUserApiDataType.h"
 %include "ThostFtdcUserApiStruct.h"
 

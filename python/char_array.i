@@ -1,17 +1,22 @@
 %typemap(in) (char **ARRAY, int SIZE) {
   if (PyList_Check($input)) {
-    int size = PyList_Size($input);
-    $2 = ($2_ltype)size;
-    $1 = (char **) malloc((size+1)*sizeof(char *));
     int i = 0;
-    for (i = 0; i < size; i++) {
+    $2 = PyList_Size($input);
+    $1 = (char **)malloc(($2+1)*sizeof(char *));
+    for (; i < $2; i++) {
       PyObject *o = PyList_GetItem($input,i);
-      $1[i] = o;
+      if (PyString_Check(o))
+	$1[i] = PyString_AsString(PyList_GetItem($input,i));
+      else {
+	PyErr_SetString(PyExc_TypeError,"list must contain strings");
+	free($1);
+	return NULL;
+      }
     }
     $1[i] = 0;
   } else {
-    $1 = 0; $2 = 0;
-    %argument_fail(SWIG_TypeError, "char **ARRAY, int SIZE", $symname, $argnum);
+    PyErr_SetString(PyExc_TypeError, "not a list");
+    return NULL;
   }
 }
 

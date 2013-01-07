@@ -1,35 +1,51 @@
 #!/usr/bin/env python
 
-#from ctp import *
+#from ctp import CThostFtdcMdSpi
 
-import ctp
+from ctp import *
+import threading
 
 def runme():
-    spi = MdSpi();
-    spi.Init()
-    spi.Join()
+#    spi = MdSpi();
+#    spi.Init()
+#    spi.Join()
     return
 
-class MdSpi(ctp.CThostFtdcMdSpi):
-    def __init__(self):
-        ctp.CThostFtdcMdSpi(self)
-        self.api = ctp.CThostFtdcTraderApi_CreateFtdcTraderApi("")
-        self.api.RegisterFront()
+class MdSpi(CThostFtdcMdSpi):
+    request_id = 0
+    def __init__(self, front, broker_id, user_id, password):
+        CThostFtdcMdSpi.__init__(self)
+
+        self.front = front
+        self.broker_id = broker_id
+        self.user_id = user_id
+        self.password = password
+
+        self.api = CThostFtdcMdApi_CreateFtdcMdApi("")
         self.api.RegisterSpi(self)
-        self.api.RegisterFront("protocal=tcp;host=asp-sim2-front1.financial-trading-platform.com;port=26213;userid=352240;password=888888;brokerid=2030");
+        self.api.RegisterFront(front)
+        self.api.Init()
+        print(threading.current_thread())
+#        self.api.RegisterFront("protocal=tcp;host=asp-sim2-front1.financial-trading-platform.com;port=26213;userid=352240;password=888888;brokerid=2030");
         return
+    def join(self):
+        self.api.Join()
+
 
     def OnFrontConnected(self):
         print("FrontConnected")
+        print(threading.current_thread())
 
-        field = ctp.CThostFtdcReqUserLoginField();
+        field = CThostFtdcReqUserLoginField();
         field.BrokerID = "2030"
         field.UserID = "352240"
         field.Password = "888888"
-        self.api.ReqUserLogin(field, 2)
+        request_id += 1
+        self.api.ReqUserLogin(field, request_id)
         return
 
     def OnRspUserLogin(self, *args):
+        print("OnRspUserLogin")
         return
 
     def OnRspError(self, *args):
@@ -46,5 +62,10 @@ class MdSpi(ctp.CThostFtdcMdSpi):
         self.api.Release()
         return
 
-if __name__ == "__main__":
-    runme()
+front = "tcp://asp-sim2-front1.financial-trading-platform.com:26213"
+broker = "2030"
+user = "352240"
+password = "888888"
+
+spi = MdSpi(front, broker, user, password)
+spi.join()
