@@ -21,8 +21,12 @@ if(SWIG_FOUND)
     find_package(TCL)
     find_package(Octave)
 
+    if(CSharp_FOUND OR MONO_FOUND)
+        add_subdirectory(csharp)
+    endif()
+
     if(JNI_FOUND)
-        add_subdirectory(java)
+#        add_subdirectory(java)
     endif()
 
     if(RUBY_FOUND)

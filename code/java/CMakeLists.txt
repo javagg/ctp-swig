@@ -31,4 +31,4 @@ add_custom_command(OUTPUT _complie_java
     DEPENDS callback-java
 )
 
-add_custom_target(run ALL DEPENDS _complie_java)
+add_custom_target(runjava ALL DEPENDS _complie_java)
