@@ -11,7 +11,7 @@ set(CMAKE_SWIG_OUTDIR ${SRC_DIR})
 file(MAKE_DIRECTORY ${SRC_DIR})
 
 set(_namespace Swigmt)
-set(CMAKE_SWIG_FLAGS "-namespace" ${_namespace} -dllimport ${_target})
+set(CMAKE_SWIG_FLAGS -namespace ${_namespace} -dllimport ${_target})
 
 set(WRAPPER_FILES ../callback.i)
 set_source_files_properties(${WRAPPER_FILES} PROPERTIES CPLUSPLUS ON)
@@ -21,11 +21,12 @@ swig_link_libraries(${_target})
 file(COPY Runme.cs DESTINATION ${CMAKE_SWIG_OUTDIR})
 
 set(CS_SOURCES "${CMAKE_SWIG_OUTDIR}/*.cs")
+
 set(BIN_FILE "Runme.exe")
 
 add_custom_command(
     OUTPUT _complie_runme
-    COMMAND ${CS_COMPLIER} /nologo ${CS_SOURCES}
+    COMMAND ${CS_COMPLIER} /nologo /out:${CMAKE_CURRENT_BINARY_DIR}/${BIN_FILE} ${CS_SOURCES}
     DEPENDS ${_target}
 )
 
