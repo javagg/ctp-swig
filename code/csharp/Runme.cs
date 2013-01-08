@@ -15,12 +15,12 @@ namespace Swigmt
     {
         public static void Main()
         {
-            using (Callback callback = new Callback())
-            {
-                Caller caller = new Caller(callback);
-                Console.WriteLine("request from c# in thread " + Thread.CurrentThread.ManagedThreadId);
-                caller.request();
-            }
+            
+	    Callback callback = new Callback();
+	    Caller caller = new Caller(callback);
+            Console.WriteLine("request from c# in thread " + Thread.CurrentThread.ManagedThreadId);
+            caller.request();
+      
         }
     }
 }

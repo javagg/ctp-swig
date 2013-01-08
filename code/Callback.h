@@ -15,12 +15,13 @@ class Caller {
 public:
     Caller(Callback *cb) : callback(cb) {}
     void request() {
-        std::cout << "request from thread " << std::this_thread::get_id() << std::endl;
+        std::cout << "in c++ lib, request in thread " << std::this_thread::get_id() << std::endl;
         std::thread t(&Caller::response, this);
         if (t.joinable()) t.join();
     }
 
     void response() {
+        std::cout << "in c++ lib, response in thread " << std::this_thread::get_id() << std::endl;
         callback->response();
     }
 
