@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -pthread")
 
 add_definitions(-DDEBUG_DIRECTOR_OWNED)
 add_executable(tCallback Main.cpp Callback.cpp)
@@ -23,7 +23,7 @@ if(SWIG_FOUND)
     find_package(Octave)
 
     if(CSharp_FOUND OR MONO_FOUND)
-        add_subdirectory(csharp)
+#        add_subdirectory(csharp)
     endif()
 
     if(JNI_FOUND)
@@ -31,10 +31,18 @@ if(SWIG_FOUND)
     endif()
 
     if(RUBY_FOUND)
-        add_subdirectory(ruby)
+#        add_subdirectory(ruby)
     endif(RUBY_FOUND)
 
     if(PYTHONINTERP_FOUND AND PYTHONLIBS_FOUND)
         add_subdirectory(python)
     endif()
+
+    if(OCTAVE_FOUND)
+        add_subdirectory(octave)
+    endif(OCTAVE_FOUND)
+
+    if(R_FOUND)
+#        add_subdirectory(R)
+    endif(R_FOUND)
 endif()

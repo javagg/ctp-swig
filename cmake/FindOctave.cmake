@@ -13,8 +13,6 @@ execute_process(COMMAND octave-config -p VERSION OUTPUT_VARIABLE _version OUTPUT
 find_path(OCTAVE_INCLUDE_DIR octave/oct.h PATHS ${_INCDIR} ${_INCDIR}/..)
 find_library(OCTAVE_LIBRARY octave PATHS ${_LIBDIR} )
 
-message(${OCTAVE_LIBRARY})
-
 if(NOT (OCTAVE_INCLUDE_DIR AND OCTAVE_LIBRARY))
     if(OCTAVE_FIND_REQUIRED)
         message(FATAL_ERROR "OCTAVE required, please specify it's location.")
