@@ -60,7 +60,7 @@ if(SWIG_FOUND)
     find_package(Octave)
 
     if(JNI_FOUND)
-#        add_subdirectory(java)
+        add_subdirectory(java)
     endif()
 
     if(RUBY_FOUND)
@@ -96,5 +96,5 @@ if(SWIG_FOUND)
     endif(OCTAVE_FOUND)
 endif()
 
-add_subdirectory(code)
+#add_subdirectory(code)
 #add_subdirectory(test)

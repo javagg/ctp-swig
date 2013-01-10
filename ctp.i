@@ -32,7 +32,7 @@
 
 #ifdef SWIGJAVA
 %rename(ThostTeResumeType) THOST_TE_RESUME_TYPE;
-
+%rename("%(lowercamelcase)s", %$isfunction) "";
 %include "various.i"
 %apply char **STRING_ARRAY { char *ppInstrumentID[] };
 

@@ -19,15 +19,17 @@ set(BIN_FILE "ctp.jar")
 set(DOC_FILE "ctp-doc.jar")
 set(SRC_FILE "ctp-src.jar")
 
-foreach(_file ${CTP_SHAREDLIBFILES})
-    file(COPY ${_file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-    get_filename_component(_rfile ${_file} NAME)
-    list(APPEND _ctpfiles ${_rfile})
-endforeach()
+#foreach(_file ${CTP_SHAREDLIBFILES})
+#    file(COPY ${_file} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+#    get_filename_component(_rfile ${_file} NAME)
+#    list(APPEND _ctpfiles ${_rfile})
+#endforeach()
 get_target_property(_target_location ctp LOCATION)
 get_filename_component(_target_name ${_target_location} NAME)
 
-add_custom_command(OUTPUT _ctp_java_jar
+file(COPY Runmd.java DESTINATION ${CMAKE_SWIG_OUTDIR})
+
+add_custom_command(OUTPUT _build_jar
     COMMENT "Creating jar file..."
     COMMAND ${Java_JAVAC_EXECUTABLE} -d ${BINARY_DIR} ${JAVA_SOURCES}
     COMMAND ${Java_JAR_EXECUTABLE} cf ${CMAKE_CURRENT_BINARY_DIR}/${BIN_FILE} -C ${BINARY_DIR} ${_package_top_dir}
@@ -38,4 +40,4 @@ add_custom_command(OUTPUT _ctp_java_jar
     DEPENDS ctp
 )
 
-add_custom_target(do_ctp_java_jar ALL DEPENDS _ctp_java_jar)
+add_custom_target(run_build_jar ALL DEPENDS _build_jar)
