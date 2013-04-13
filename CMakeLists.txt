@@ -60,7 +60,7 @@ if(SWIG_FOUND)
     find_package(Octave)
 
     if(JNI_FOUND)
-        add_subdirectory(java)
+#        add_subdirectory(java)
     endif()
 
     if(RUBY_FOUND)
@@ -72,7 +72,7 @@ if(SWIG_FOUND)
     endif(R_FOUND)
 
     if(PYTHONINTERP_FOUND AND PYTHONLIBS_FOUND)
-#        add_subdirectory(python)
+        add_subdirectory(python)
     endif()
 
     if(CSharp_FOUND OR MONO_FOUND)

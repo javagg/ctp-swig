@@ -1,5 +1,5 @@
 include_directories(${PYTHON_INCLUDE_DIRS})
-set(CMAKE_SWIG_FLAGS -features autodoc=1)
+set(CMAKE_SWIG_FLAGS -features autodoc=1 -threads)
 set(CMAKE_SWIG_OUTDIR ${CMAKE_CURRENT_BINARY_DIR})
 
 set(_target ctp-python)
