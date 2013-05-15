@@ -62,18 +62,9 @@ CSHARP_ARRAYS(char *, string)
 %include "ThostFtdcUserApiDataType.h"
 %include "ThostFtdcUserApiStruct.h"
 
-//%extend CThostFtdcMdSpi {
-//public:
-//    virtual ~CThostFtdcMdSpi();
-//};
 
 %feature("director") CThostFtdcMdSpi;
 %include "ThostFtdcMdApi.h"
-
-//%extend CThostFtdcTraderSpi {
-//public:
-//    virtual ~CThostFtdcTraderSpi();
-//};
 
 
 %feature("director") CThostFtdcTraderSpi;
