@@ -17,7 +17,7 @@
 #include "ThostFtdcMdApi.h"
 %}
 
-// These symbols are NEVER used in original files
+/* These symbols are NEVER used in original files */
 %ignore TThostFtdcVirementTradeCodeType;
 %ignore THOST_FTDC_VTC_BankBankToFuture;
 %ignore THOST_FTDC_VTC_BankFutureToBank;
